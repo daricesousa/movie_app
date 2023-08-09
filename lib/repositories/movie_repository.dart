@@ -18,8 +18,10 @@ class MovieRepository {
     return response['results'].map<MovieModel>(MovieModel.fromMap).toList();
   }
 
-  Future<List<MovieModel>> findTopMovies() async {
-    final response = await _restClient.get('/movie/top_rated');
+  Future<List<MovieModel>> findTopMovies({int page = 1}) async {
+    final response = await _restClient.get('/discover/movie', params: {
+      'page': page,
+    });
     return response['results'].map<MovieModel>(MovieModel.fromMap).toList();
   }
 
@@ -53,9 +55,8 @@ class MovieRepository {
   }
 
   Future<List<MovieModel>> similar(int movieId) async {
-    final response = await _restClient.get('/movie/$movieId/similar');
-    final res =
-        response['results'].map<MovieModel>(MovieModel.fromMap).toList();
+    var response = await _restClient.get('/movie/$movieId/similar');
+    var res = response['results'].map<MovieModel>(MovieModel.fromMap).toList();
     res as List<MovieModel>;
     res.removeWhere((element) => element.id == movieId);
     return res;
