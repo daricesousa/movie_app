@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/ui/widgets/movie_card.dart';
@@ -19,12 +20,13 @@ class MoviesByGenrePage extends GetView<MoviesByGenreController> {
 
   Widget _body() {
     if (controller.loading) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: CupertinoActivityIndicator());
     }
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisExtent: 330,
+        mainAxisExtent: 265,
+        crossAxisSpacing: 10,
       ),
       itemCount: controller.movies.length,
       itemBuilder: (context, index) {
